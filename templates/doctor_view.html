@@ -1,0 +1,115 @@
+<h1 style="font-size: 2.5em; font-weight: bold; margin-bottom: 16px;">Doctor profile</h1>
+
+<!-- Doctor Info Section -->
+<div style="display: flex; align-items: center; background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
+    <img src="{{ url_for('static', filename='images/doctor_profile.jpg') }}" alt="Doctor Profile"
+        style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; margin-right: 20px;">
+    <div>
+        <div style="margin-bottom: 6px;"><strong>Name:</strong> John</div>
+        <div style="margin-bottom: 6px;"><strong>Address:</strong> Hyderabad</div>
+        <div><strong>Study:</strong> UK</div>
+    </div>
+</div>
+
+<h2 class="mb-3">Patient Database</h2>
+
+<input type="text" id="patientSearch" onkeyup="searchPatient()" placeholder="Search for patient ID..." class="form-control mb-3" style="margin-bottom: 32px; margin-top: 16px; padding: 12px 16px;">
+
+<style>
+    #patientTable {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #patientTable th, #patientTable td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    #patientTable tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    #patientTable tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    #patientTable thead {
+        background-color: #343a40;
+        color: white;
+    }
+</style>
+
+<table class="table table-hover table-bordered" id="patientTable">
+    <thead class="table-dark">
+        <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Chest Pain Type</th>
+            <th>Resting BP</th>
+            <th>Cholesterol</th>
+            <th>FBS</th>
+            <th>ECG</th>
+            <th>Max HR</th>
+            <th>Ex Angina</th>
+            <th>Result</th>
+            <th>Appointment Date</th>
+            <th>Schedule Appointment</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in shared_data %}
+        <tr {% if loop.index > 5 %}style="display:none"{% endif %}>
+            <td>{{ patient.patient_id }}</td>
+            <td>{{ patient.username }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.chest_pain_type }}</td>
+            <td>{{ patient.resting_bp }}</td>
+            <td>{{ patient.cholesterol }}</td>
+            <td>{{ patient.fbs }}</td>
+            <td>{{ patient.ecg }}</td>
+            <td>{{ patient.max_hr }}</td>
+            <td>{{ patient.ex_angina }}</td>
+            <td>{{ patient.result }}</td>
+            <td>{{ patient.appointment_date or "Not set" }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('create_appointment') }}">
+                    <input type="hidden" name="patient_id" value="{{ patient.patient_id }}">
+                    <input type="datetime-local" name="appointment_time" required>
+                    <button type="submit" class="btn btn-primary btn-sm">Set Appointment</button>
+                </form>       </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="display: flex; justify-content: center; margin: 32px 0;">
+    <button id="showMoreBtn" class="btn btn-secondary">Show More</button>
+</div>
+
+<script>
+    function searchPatient() {
+        var input = document.getElementById("patientSearch").value.toUpperCase();
+        var table = document.getElementById("patientTable");
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 1; i < tr.length; i++) {
+            var td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                var txtValue = td.innerText || td.textContent;
+                if (txtValue.toUpperCase().indexOf(input) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    document.getElementById("showMoreBtn").addEventListener("click", function() {
+        var table = document.getElementById("patientTable");
+        var tr = table.getElementsByTagName("tr");
+        for (var i = 1; i < tr.length; i++) {
+            tr[i].style.display = "";
+        }
+        this.style.display = "none";
+    });
+</script>

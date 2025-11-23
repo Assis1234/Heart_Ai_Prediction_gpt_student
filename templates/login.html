@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Patient Login</title>
+    <style>
+        body.login {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            /* centers horizontally */
+            align-items: center;
+            /* centers vertically */
+            background: linear-gradient(135deg, #ffe5e5, #ffcccc);
+            /* light red gradient */
+        }
+
+        .box {
+    width: 400px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px; /* increased padding for internal spacing */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    color: #000;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box; /* include padding in width */
+}
+
+input {
+    width: 100%;
+    padding: 14px 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    margin-bottom: 15px;
+    box-sizing: border-box; /* ensures padding is inside the input width */
+}
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e74c3c;
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .hint-text {
+            color: #b0b0b0;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body class="login">
+    <a href="{{ url_for('home') }}" style="
+           position: absolute;
+           top: 20px;
+           left: 20px;
+           font-size: 16px;
+           color: #c0392b;
+           text-decoration: none;
+           font-weight: bold;
+         ">
+        ← Back
+    </a>
+    <div class="box">
+        <h2>Patient Login</h2>
+
+        <form method="POST" action="/login">
+            <label style="display: block; text-align: left; margin-bottom: 5px;">Username</label>
+            <input type="text" name="username" required>
+            <div style="display: block; text-align: left; color: #b0b0b0; font-size: 12px; margin-bottom: 10px;">
+                Enter your username  </div>
+
+            <label style="display: block; text-align: left; margin-bottom: 5px;">Password</label>
+            <input type="password" name="password" required>
+            <div style="display: block; text-align: left; color: #b0b0b0; font-size: 12px; margin-bottom: 10px;">
+                Enter your password  </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="link">
+            <a href="/register">Create a new account</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
