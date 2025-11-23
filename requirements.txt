@@ -1,7 +1,7 @@
-Flask
-gunicorn
-mysql-connector-python
-pymysql
-numpy==1.23.0
-pandas==1.5.3
-scikit-learn==1.2.2
+Flask==2.2.5
+gunicorn==20.1.0
+mysql-connector-python==8.1.0
+pymysql==1.0.2
+numpy==1.22.4
+pandas==1.4.2
+scikit-learn==1.0.2
