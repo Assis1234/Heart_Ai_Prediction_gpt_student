@@ -2,7 +2,6 @@ Flask
 gunicorn
 mysql-connector-python
 pymysql
-numpy==2.0.2
-pandas==2.2.2
-scikit-learn==1.5.0
-
+numpy==1.22.4
+pandas==1.4.4
+scikit-learn==1.0.2
